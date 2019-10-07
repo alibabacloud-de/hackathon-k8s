@@ -10,7 +10,7 @@ Each section will list a couple of resources, links, and services we recommend t
 ![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/s1.png "Simple CD Pipeline")
 In this scenario you are trying to set up a simple continuous deployment pipeline between Mainland China and an overseas (i.e. outside of Mainland China) via public Git repository provider, such as Github.
 
-Code artifacts such as binaries and docker images are being built overseas and then copied over to an Alibaba Cloud Container Registry instance in Shanghai over public internet. It is then automatically deployed to a Kubernetes cluster in Shanghai.
+Code artifacts such as binaries and docker images are being built overseas (HongKong) and then copied over to an Alibaba Cloud Container Registry instance in Shanghai over public internet. It is then automatically deployed to a Kubernetes cluster in Shanghai.
 
 1. You'll need a Github (or BitBucket, Private Gitlab) project with a working Dockerfile that contains an app or a service that provides some sort of web interface. The [Kuard](https://github.com/kubernetes-up-and-running/kuard) project might be a good starting point for example, but feel free to bring your own project! 
 
