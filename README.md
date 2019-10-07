@@ -7,7 +7,7 @@ Each section will list a couple of resources, links, and services we recommend t
 
 # Core Scenarios
 ## 1 - Simple serverless cross-region deployment pipeline
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/s1.png "Simple CD Pipeline")
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/s1.png "Simple CD Pipeline")
 In this scenario you are trying to set up a simple continuous deployment pipeline between Mainland China and an overseas (i.e. outside of Mainland China) via public Git repository provider, such as Github.
 
 Code artifacts such as binaries and docker images are being built overseas (HongKong) and then copied over to an Alibaba Cloud Container Registry instance in Shanghai over public internet. It is then automatically deployed to a Kubernetes cluster in Shanghai.
@@ -21,7 +21,7 @@ Code artifacts such as binaries and docker images are being built overseas (Hong
 4. An [Alibaba Cloud Container Registry](https://www.alibabacloud.com/help/doc-detail/60945.htm) with the right build and trigger configuration. Make sure to pull from the VPC-endpoint to save on outbound internet bandwidth. Check out our documentation at https://www.alibabacloud.com/help/doc-detail/60997.htm
 
 ## 2 - Reliable geo-redundant serverless cross-region deployment pipeline
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/s2.png "Geo-redundant CD Pipeline")
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/s2.png "Geo-redundant CD Pipeline")
 In this scenario you will try to set up and configure a reliable and geo-redundant deployment pipeline between our *Shanghai* region and our *UK* region.
 
 The binaries and docker images are being built and pushed to the Alibaba Cloud Container Registry instance in *UK*. The docker image is then asynchronously replicated over Alibaba Cloud global backbone network to a registry instance in *Shanghai* where the image is then automatically deployed to the Kubernetes cluster.
@@ -51,7 +51,7 @@ If you are using jenkins for CI/CD and provide your application/service on kuber
 If you have routing concept to expose your application/service, you can also make blue-green deployment based on switching complete from old cluster to a new cluster.
 
 ## B - Branching Workflow Support
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/b1.png "Branching Workflow")
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/b1.png "Branching Workflow")
 In this bonus task you will extend your existing environment with support for a branching workflow. That is depending on the branch or a tag of a new check-in you will trigger different build and deployment actions that might target different Kubernetes clusters and/or Kubernetes Deployments in different regions.
 
 An initial idea here is to introduce two branches: `dev` and `master`. Whenever a new check-in happens at the `dev` branch a new image should be built whose tag contains the string *dev*. Images tagged like that are to be deployed into the dev cluster in *UK* region.
@@ -64,7 +64,7 @@ Whenever a new check-in happens at the `master` branch a new image should be bui
 2. Make sure to also create an according Kubernetes Deployment object in your testing cluster in *UK* that allows you to create a trigger for a redeployment. This trigger can then be used by your container registry in *UK*. 
 
 3. You will need two Alibaba Cloud Container Registries (ACR) *Enterprise Edition Basic Version* for cross-region image replication over Alibaba Cloud global backbone network: one in our *UK* (`eu-west-1`) region, one in our *Shanghai* (`cn-shanghai`) region.
-Make sure to account for the branching workflow and change the existing build and trigger onfiguration accordingly which can be either based on tags and/or on branches. Make sure to pull from the VPC-endpoint to save on outbound internet bandwidth. Check out our documentation at https://www.alibabacloud.com/help/doc-detail/60997.htm
+Make sure to account for the branching workflow and change the existing build and trigger configuration accordingly which can be either based on tags and/or on branches. Make sure to pull from the VPC-endpoint to save on outbound internet bandwidth. Check out our documentation at https://www.alibabacloud.com/help/doc-detail/60997.htm
     
 ## C - Reduce cost with Serverless K8s / Virtual Kubelets
 In this scenario you will use a Serverless Kubernetes cluster to deploy your workloads to reduce costs of your infrastructure. In a Serverless cluster you are not billed based on the amount of worker nodes but based on the seconds your individual pods run. For short run jobs or dev/test scenarios this can lead to significant cost savings. Furthermore it completely frees you from any operational and maintenance burden you usually have with worker node clusters.
@@ -78,25 +78,30 @@ In this scenario you will use a Serverless Kubernetes cluster to deploy your wor
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cloud-monitor-service.png "Cloud Monitoring integration")
 In this scenario you will update the application code to be able to visualize the service performance in one of the Cloud Monitoring services.
 1. [CloudMonitor](https://www.alibabacloud.com/help/product/28572.htm): CloudMonitor collects monitor metrics of Alibaba Cloud resources and custom metrics. The service can be used to detect the availability of your service and allows you to set alarms on specific metrics. CloudMonitor supports [terraform](https://www.terraform.io/docs/providers/alicloud/r/cms_alarm.html).
+- You can [create alert for pods](https://www.alibabacloud.com/help/doc-detail/99683.htm) in k8s cluster
+- It is also possible to [send custom metrics](https://www.alibabacloud.com/help/doc-detail/115004.htm)
+- SDK supports Java/Python/PHP
 
-2. [Log Service](https://www.alibabacloud.com/help/product/28958.htm): Log Service is a complete real-time data logging service that has been developed by Alibaba Group. Log Service supports collection, consumption, shipping, search, and analysis of logs, and improves the capacity of processing and analyzing large amounts of logs. CloudMonitor supports [terraform](https://www.terraform.io/docs/providers/alicloud/r/log_project.html).
+2. [Log Service](https://www.alibabacloud.com/help/product/28958.htm): Log Service is a complete real-time data logging service that has been developed by Alibaba Group. Log Service supports collection, consumption, shipping, search, and analysis of logs, and improves the capacity of processing and analyzing large amounts of logs. CloudMonitor supports [terraform](https://www.terraform.io/docs/providers/alicloud/r/log_project.html). It has very convenient integration with [Log4j](https://github.com/aliyun/aliyun-log-log4j-appender) and SDK supports almost all major development programming languages.
 
-3. [ARMS: Application Real-Time Monitoring Service](https://www.alibabacloud.com/help/product/34364.htm): Application Real-Time Monitoring Service (ARMS) is an end-to-end Alibaba Cloud monitoring service for Application Performance Management (APM). You can quickly develop real-time business monitoring capabilities using the frontend monitoring, application monitoring, and custom monitoring features provided by ARMS. ARMS does not support terraform yet.
+3. [ARMS: Application Real-Time Monitoring Service](https://www.alibabacloud.com/help/product/34364.htm): Application Real-Time Monitoring Service (ARMS) is an end-to-end Alibaba Cloud monitoring service for Application Performance Management (APM). You can quickly develop real-time business monitoring capabilities using the frontend monitoring, application monitoring, and custom monitoring features provided by ARMS. ARMS is still in Beta version and it does not support terraform yet.
+e.g. using browser monitoring You can easily integrate the web application with ARMS by simply copy lines of code to index.html.
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/browser-monitoring.png "ARMS-Browser-Monitoring")
 
 ## E - Use P2P Acceleration to increase download efficiency of images
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/b4.png "P2P Acceleration")
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/b4.png "P2P Acceleration")
 In this bonus task you will modify your cluster to make use of the peer-to-peer functionality of Alibaba Cloud Container Registry Enterprise Edition to improve the large-scale container image distribution capability and experience extremely fast image pulling. Usually, you won't notice any performance difference unless you have hundreds or thousands of nodes concurrently pulling images. Alibaba is using this technology internally for their own large-scale deployments. It is based on [Dragonfly](https://d7y.io). 
 
 1. The current P2P acceleration plug-in supports only Dedicated Kubernetes and multi-zone Kubernetes clusters. It does not support Managed Kubernetes clusters. So make sure to launch a Dedicated cluster in *Shanghai* region and adapt the existing build and trigger tasks.
 
-2. Follow the detailed instruction set on the web console when selecting the P2P Acceleration feature of the Continer Registry in *Shanghai*. 
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/p2p.png "P2P Acceleration instructions")
+2. Follow the detailed instruction set on the web console when selecting the P2P Acceleration feature of the Container Registry in *Shanghai*. 
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/p2p.png "P2P Acceleration instructions")
 
 # Did you know...?
 - that you can use [Alibaba Cloud Shell](https://www.alibabacloud.com/help/doc-detail/90256.htm) and launch it with a pre-configured version of `kubectl`? See below screenshot on where to find this nice feature:
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/k8-cloudshell.png "Cloud Shell")
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/k8-cloudshell.png "Cloud Shell")
 - that the App Catalog of Alibaba Cloud Container Service features many Helm Charts that can be simply installed through a built-in graphical user interface? See https://www.alibabacloud.com/help/doc-detail/64282.htm for details.
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/appcatalog.png "App Catalog")
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/appcatalog.png "App Catalog")
 
 # Authorization
 There are two authorization layers in our container service:
@@ -108,8 +113,8 @@ Per default, only the root user of an account has a so-called `ClusterRoleBindin
 
 There are two ways how to configure RBAC for RAM-users:
 
-1) Through the Alibaba Clud Container Servce web-console under the *Authorization*. You need to be logged-in as root-account or with a RAM user that has already been granted the `cluster-admin` role. There you can grant individual RAM-users pre-defined RBAC roles.
-![alt text](https://github.com/arafato/hackathon-k8/raw/master/img/rbac.png "RBAC")
+1) Through the Alibaba Cloud Container Service web-console under the *Authorization*. You need to be logged-in as root-account or with a RAM user that has already been granted the `cluster-admin` role. There you can grant individual RAM-users pre-defined RBAC roles.
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/rbac.png "RBAC")
 
 2) Through `kubectl` directly. Create a file with below content and replace the marked fields `metadata.name` with a unique name of your choice, and the field `subjects[*].name` with the UID of the RAM user. You can find this UID either in the RAM web console by clicking on the username or by invoking the *Aliyun CLI* like so:  `$ aliyun ram ListUsers`
 and looking at the `userid` field.
