@@ -38,11 +38,18 @@ Make sure to configure two different features:
     - the build and trigger configuration for both the *UK* and *Shanghai* based registries. The build will be done in UK, while the deployment will be done from *Shanghai*. Make sure to pull from the VPC-endpoint to save on outbound internet bandwidth. Check out our documentation at https://www.alibabacloud.com/help/doc-detail/60997.htm
     - the image replication from *UK* to *Shanghai*. No documentation available yet. Find your own way in the web console or ask Alibaba Cloud staff on-site.
 
-## 3 - Reliable and private cross-region deployment with Gitlab and CEN
-TODO
-
 # Bonus Tasks
-## A - Manage K8s Cluster via terraform (practice Infrastructure as Code)
+## A - Access K8s Cluster via internal entry over CEN
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cen.png "CEN connection")
+"Access k8s cluster via internal entry over CEN")In this bonus task, you will set up Cloud Enterprise Network(CEN) instance to connect an Elastic Compute Service(ECS) instance in *German* (`eu-central-1`) region and existing Kubernetes cluster in *Shanghai* (`cn-shanghai`) region. Then you can access the Kubernetes cluster via internal entry point.
+1. You will need to create an ECS instance with "Pay-As-You-Go" billig method in *German* (`eu-central-1`) region. Check out our documentation https://www.alibabacloud.com/help/doc-detail/87190.htm on how to create ECS instance through web console.
+
+2. Create a CEN instance then attach the VPC of kubernetes cluster in Shanghai region and VPC of ECS instance in German region. Buy the bandwidth package to enable the communication between networks across regions. In this case the two areas should be "Mainland Chian" and "Europe".
+**Hit**: You can find VPC of kubernetes cluster in [container service console](https://cs.console.aliyun.com) and VPC of the ECS instance in [ECS console](https://ecs.console.aliyun.com)
+
+3. Ensure the status of ECS instance turns to "running", then you can connect to the ECS instance. Check out our documentation https://www.alibabacloud.com/help/doc-detail/71529.htm on how to connect ECS instance. You will need to install `kubectl` in the ECS instance. Configure `kubectl` by using `KubeConfig (Internal Access)`. Check out https://www.alibabacloud.com/help/doc-detail/86378.htm for information on how to configure `kubectl` to access your cluster. After configuration is done, you can access with the kubernetes cluster in *Shanghai* (`cn-shanghai`) region without going through public internet.
+
+## B - Manage K8s Cluster via terraform (practice Infrastructure as Code)
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/terraform.png "Terraform")
 In this bonus task, you will update your deployment pipeline by using terraform to create new or update your existing k8s cluster. Using terraform you can manage your infrastructure's life cycle declaratively and setup or remove infrastructure orchestrated by CI/CD tools automatically.
 
@@ -50,7 +57,7 @@ If you are using jenkins for CI/CD and provide your application/service on kuber
 
 If you have routing concept to expose your application/service, you can also make blue-green deployment based on switching complete from old cluster to a new cluster.
 
-## B - Branching Workflow Support
+## C - Branching Workflow Support
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/b1.png "Branching Workflow")
 In this bonus task you will extend your existing environment with support for a branching workflow. That is depending on the branch or a tag of a new check-in you will trigger different build and deployment actions that might target different Kubernetes clusters and/or Kubernetes Deployments in different regions.
 
@@ -66,7 +73,7 @@ Whenever a new check-in happens at the `master` branch a new image should be bui
 3. You will need two Alibaba Cloud Container Registries (ACR) *Enterprise Edition Basic Version* for cross-region image replication over Alibaba Cloud global backbone network: one in our *UK* (`eu-west-1`) region, one in our *Shanghai* (`cn-shanghai`) region.
 Make sure to account for the branching workflow and change the existing build and trigger configuration accordingly which can be either based on tags and/or on branches. Make sure to pull from the VPC-endpoint to save on outbound internet bandwidth. Check out our documentation at https://www.alibabacloud.com/help/doc-detail/60997.htm
     
-## C - Reduce cost with Serverless K8s / Virtual Kubelets
+## D - Reduce cost with Serverless K8s / Virtual Kubelets
 In this scenario you will use a Serverless Kubernetes cluster to deploy your workloads to reduce costs of your infrastructure. In a Serverless cluster you are not billed based on the amount of worker nodes but based on the seconds your individual pods run. For short run jobs or dev/test scenarios this can lead to significant cost savings. Furthermore it completely frees you from any operational and maintenance burden you usually have with worker node clusters.
 
 **Watch out**: Since Serverless Kubernetes is not available yet (at the time of writing - early Oct. 2019) in UK region, thus migtigation approach will be accpeted ;-). For instance, you can simply replace our *Shanghai*-based cluster with a Serverless Kubernetes cluster. Also keep in mind that Elastic Container Instances which Virtual Kubelet is depending on is also not available yet in *UK* as well so unfortunately you cannot use it either.
@@ -74,7 +81,7 @@ In this scenario you will use a Serverless Kubernetes cluster to deploy your wor
 1. Create a new Serverless Kubernetes Cluster in *Shanghai* region. Please refer to https://www.alibabacloud.com/help/doc-detail/86366.htm for details and further information on the concepts. Alternatively, you can also install the Helm chart `ack-virtual-node` from our App Catalog which will add serverless capabilities to your existing cluster. Please refer to https://github.com/virtual-kubelet/alibabacloud-eci and https://github.com/virtual-kubelet/virtual-kubelet for detailed information.
 2. Modify your trigger tasks of your *Shanghai* based registry to deploy into the newly created Serverless Cluster.
 
-## D - Observability: Integration with Cloud Monitoring services
+## E - Observability: Integration with Cloud Monitoring services
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cloud-monitor-service.png "Cloud Monitoring integration")
 In this scenario you will update the application code to be able to visualize the service performance in one of the Cloud Monitoring services.
 1. [CloudMonitor](https://www.alibabacloud.com/help/product/28572.htm): CloudMonitor collects monitor metrics of Alibaba Cloud resources and custom metrics. The service can be used to detect the availability of your service and allows you to set alarms on specific metrics. CloudMonitor supports [terraform](https://www.terraform.io/docs/providers/alicloud/r/cms_alarm.html).
@@ -88,7 +95,7 @@ In this scenario you will update the application code to be able to visualize th
 e.g. using browser monitoring You can easily integrate the web application with ARMS by simply copy lines of code to index.html.
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/browser-monitoring.png "ARMS-Browser-Monitoring")
 
-## E - Use P2P Acceleration to increase download efficiency of images
+## F - Use P2P Acceleration to increase download efficiency of images
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/b4.png "P2P Acceleration")
 In this bonus task you will modify your cluster to make use of the peer-to-peer functionality of Alibaba Cloud Container Registry Enterprise Edition to improve the large-scale container image distribution capability and experience extremely fast image pulling. Usually, you won't notice any performance difference unless you have hundreds or thousands of nodes concurrently pulling images. Alibaba is using this technology internally for their own large-scale deployments. It is based on [Dragonfly](https://d7y.io). 
 
