@@ -40,7 +40,7 @@ Make sure to configure two different features:
 
 # Bonus Tasks
 ## A - Access K8s Cluster via internal entry over CEN
-![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cen.png "CEN connection")
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cen.png "CEN connection")<br/>
 "Access k8s cluster via internal entry over CEN")In this bonus task, you will set up Cloud Enterprise Network(CEN) instance to connect an Elastic Compute Service(ECS) instance in *German* (`eu-central-1`) region and existing Kubernetes cluster in *Shanghai* (`cn-shanghai`) region. Then you can access the Kubernetes cluster via internal entry point.
 1. You will need to create an ECS instance with "Pay-As-You-Go" billig method in *German* (`eu-central-1`) region. Check out our documentation https://www.alibabacloud.com/help/doc-detail/87190.htm on how to create ECS instance through web console.
 
