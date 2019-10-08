@@ -40,14 +40,15 @@ Make sure to configure two different features:
 
 # Bonus Tasks
 ## A - Access K8s Cluster via internal entry endpoint over CEN
-![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cen.png "CEN connection")<br/>
-"Access k8s cluster via internal entry over CEN") In this bonus task, you will set up a Cloud Enterprise Network(CEN) instance to inter-connect an Elastic Compute Service(ECS) instance in *German* (`eu-central-1`) region with existing Kubernetes cluster in *Shanghai* (`cn-shanghai`) region. Then you can access the Kubernetes cluster via internal entry endpoint, namely private IP belong to the CIDR of VPC, in stead of a public IP address.
-1. You will need to create an ECS instance with "Pay-As-You-Go" billig method in *German* (`eu-central-1`) region. Check out our documentation https://www.alibabacloud.com/help/doc-detail/87190.htm on how to create ECS instance through web console.
+![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cen.png "CEN Connection")
 
-2. Create a CEN instance then attach the VPC of kubernetes cluster in Shanghai region and VPC of ECS instance in German region. Buy the bandwidth package to enable the communication between networks across regions. In this case the two areas should be "Mainland Chian" and "Europe".
-**Hint**: You can find VPC of kubernetes cluster in [container service console](https://cs.console.aliyun.com) and VPC of the ECS instance in [ECS console](https://ecs.console.aliyun.com)
+In this bonus task, you will set up a Cloud Enterprise Network(CEN) instance to inter-connect an Elastic Compute Service(ECS) instance in *German* (`eu-central-1`) region with existing Kubernetes cluster in *Shanghai* (`cn-shanghai`) region. Then you can access the Kubernetes cluster via internal entry endpoint, namely private IP belong to the CIDR of VPC, instead of a public IP address.
+1. You will need to create an ECS instance with "Pay-As-You-Go" billig method in *German* (`eu-central-1`) region. Check out our documentation https://www.alibabacloud.com/help/doc-detail/87190.htm on how to create an ECS instance through web console.
 
-3. Ensure the status of ECS instance has turned into "running", then you can connect to the ECS instance. Check out our documentation https://www.alibabacloud.com/help/doc-detail/71529.htm on how to connect ECS instance. Afterward, you will need to install `kubectl` in the ECS instance. Configure `kubectl` by using `KubeConfig (Internal Access)`. Check out https://www.alibabacloud.com/help/doc-detail/86378.htm for information on how to configure `kubectl` to access your kubernetes cluster. After the configuration is done, you can access with the kubernetes cluster in *Shanghai* (`cn-shanghai`) region without going through public internet.
+2. Create a CEN instance then attach the VPC of kubernetes cluster in Shanghai region and VPC of ECS instance in German region. Buy the bandwidth package to enable the communication between networks across regions. In this case the two areas should be "Mainland China" and "Europe".
+**Hint**: You can find VPC of kubernetes cluster in [Container Service Console](https://cs.console.aliyun.com) and VPC of the ECS instance in [ECS Console](https://ecs.console.aliyun.com)
+
+3. Ensure the status of ECS instance has turned into "running", then you can connect to the ECS instance. Check out our documentation https://www.alibabacloud.com/help/doc-detail/71529.htm on how to connect to an ECS instance. Afterwards, you will need to install `kubectl` in the ECS instance. Configure `kubectl` by using `KubeConfig (Internal Access)`. Check out https://www.alibabacloud.com/help/doc-detail/86378.htm for information on how to configure `kubectl` to access your Kubernetes cluster. After the configuration is done, you can access the Kubernetes cluster in *Shanghai* (`cn-shanghai`) region without going through public internet.
 
 ## B - Manage K8s Cluster via terraform (practice Infrastructure as Code)
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/terraform.png "Terraform")
