@@ -39,15 +39,15 @@ Make sure to configure two different features:
     - the image replication from *UK* to *Shanghai*. No documentation available yet. Find your own way in the web console or ask Alibaba Cloud staff on-site.
 
 # Bonus Tasks
-## A - Access K8s Cluster via internal entry over CEN
+## A - Access K8s Cluster via internal entry endpoint over CEN
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/cen.png "CEN connection")<br/>
-"Access k8s cluster via internal entry over CEN")In this bonus task, you will set up Cloud Enterprise Network(CEN) instance to connect an Elastic Compute Service(ECS) instance in *German* (`eu-central-1`) region and existing Kubernetes cluster in *Shanghai* (`cn-shanghai`) region. Then you can access the Kubernetes cluster via internal entry point.
+"Access k8s cluster via internal entry over CEN") In this bonus task, you will set up a Cloud Enterprise Network(CEN) instance to inter-connect an Elastic Compute Service(ECS) instance in *German* (`eu-central-1`) region with existing Kubernetes cluster in *Shanghai* (`cn-shanghai`) region. Then you can access the Kubernetes cluster via internal entry endpoint, namely private IP belong to the CIDR of VPC, in stead of a public IP address.
 1. You will need to create an ECS instance with "Pay-As-You-Go" billig method in *German* (`eu-central-1`) region. Check out our documentation https://www.alibabacloud.com/help/doc-detail/87190.htm on how to create ECS instance through web console.
 
 2. Create a CEN instance then attach the VPC of kubernetes cluster in Shanghai region and VPC of ECS instance in German region. Buy the bandwidth package to enable the communication between networks across regions. In this case the two areas should be "Mainland Chian" and "Europe".
-**Hit**: You can find VPC of kubernetes cluster in [container service console](https://cs.console.aliyun.com) and VPC of the ECS instance in [ECS console](https://ecs.console.aliyun.com)
+**Hint**: You can find VPC of kubernetes cluster in [container service console](https://cs.console.aliyun.com) and VPC of the ECS instance in [ECS console](https://ecs.console.aliyun.com)
 
-3. Ensure the status of ECS instance turns to "running", then you can connect to the ECS instance. Check out our documentation https://www.alibabacloud.com/help/doc-detail/71529.htm on how to connect ECS instance. You will need to install `kubectl` in the ECS instance. Configure `kubectl` by using `KubeConfig (Internal Access)`. Check out https://www.alibabacloud.com/help/doc-detail/86378.htm for information on how to configure `kubectl` to access your cluster. After configuration is done, you can access with the kubernetes cluster in *Shanghai* (`cn-shanghai`) region without going through public internet.
+3. Ensure the status of ECS instance has turned into "running", then you can connect to the ECS instance. Check out our documentation https://www.alibabacloud.com/help/doc-detail/71529.htm on how to connect ECS instance. Afterward, you will need to install `kubectl` in the ECS instance. Configure `kubectl` by using `KubeConfig (Internal Access)`. Check out https://www.alibabacloud.com/help/doc-detail/86378.htm for information on how to configure `kubectl` to access your kubernetes cluster. After the configuration is done, you can access with the kubernetes cluster in *Shanghai* (`cn-shanghai`) region without going through public internet.
 
 ## B - Manage K8s Cluster via terraform (practice Infrastructure as Code)
 ![alt text](https://github.com/alibabacloud-de/hackathon-k8s/raw/master/img/terraform.png "Terraform")
@@ -168,4 +168,4 @@ https://www.terraform.io/docs/providers/alicloud/
 https://www.alibabacloud.com/help
 
 # Contacts
-Alibaba Cloud German Solution Architect Team 
+Alibaba Cloud International Solution Architect/German Team 
