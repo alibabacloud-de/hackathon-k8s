@@ -1,0 +1,12 @@
+{
+    "name": "demo-ui",
+    "description": "demo to deploy alicloud",
+    "version": "0.0.1",
+    "main": "server.js",
+    "author": "Wei Xu <yagrxu@gmail.com>",
+    "dependencies": {
+        "express": "",
+        "express-http-proxy": "",
+        "alife-logger": ""
+    }
+}

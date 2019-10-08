@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: ui5-demo
+spec:
+  selector:
+    matchLabels:
+      run: ui5-demo
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: ui5-demo
+    spec:
+      containers:
+      - name: ui5-demo
+        image: registry-intl.eu-central-1.aliyuncs.com/yagr-demo/ui5-demo:0.1
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_URL
+          value: http://localhost:8080
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: regcred

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/alicloud-loadbalancer-address-type: intranet
+  creationTimestamp: '2019-08-21T19:51:27Z'
+  name: personservice
+  namespace: default
+  resourceVersion: '5003728'
+  selfLink: /api/v1/namespaces/default/services/personservice
+  uid: 10757ff3-c44d-11e9-9ff5-cecc9077c659
+spec:
+  clusterIP: 172.21.14.161
+  externalTrafficPolicy: Cluster
+  ports:
+    - name: port
+      nodePort: 30692
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: demo-backend
+  sessionAffinity: None
+  type: LoadBalancer

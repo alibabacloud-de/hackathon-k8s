@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui5-demo
+  labels:
+    run: ui5-demo
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    run: ui5-demo
+  type: LoadBalancer
