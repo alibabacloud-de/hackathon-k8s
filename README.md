@@ -146,7 +146,7 @@ subjects:
 ```
 
 The following pre-defined roles are available (see web-console description for details of authorization scope):
-- `cluster-admin`
+- `cs:admin`
 - `cs:ops`
 - `cs:dev`
 
