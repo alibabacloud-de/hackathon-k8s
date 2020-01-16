@@ -138,7 +138,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   # Can be any of the other roles described below
-  name: cluster-admin  
+  name: cs:admin  
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: User
